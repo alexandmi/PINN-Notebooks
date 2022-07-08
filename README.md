@@ -1,4 +1,4 @@
-# PINN-Notebooks
+# PINNs implementation in Python-Notebooks
 This is a repository for my Physics-Informed Neural Networks, designed for solvment of differential equations.
 
 * In folder DeepXDE there are differential equation solved with the DeepXDE library
