@@ -7,3 +7,5 @@ This is a repository for my Physics-Informed Neural Networks, designed for solvm
 * In folder Method Testing there are my own methods of mine which i test to solve differencial equations
 
 * In folder Methods Completed there are completed PINNs which solve problems, with methods created by using tensorflow
+
+equation $\ x\in[-1,1]$
