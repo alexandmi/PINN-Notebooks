@@ -56,17 +56,17 @@ The domain and all things related to point sets are handled by the `geometry` mo
 
 The boundary coordinates for an ordinary DE are numbers, whereas for a partial DE are lists of numbers. The number of domain points can vary from a few hundred to a few thousands, depending on the difficulty and complexity of the DE, so feel free to experiment with the number. Keep in mind however that the more points the domain has, the longer will the training take.
 
-**Example 1:** *Simple interval $x\in[-1,1]$, with 100 points:*
+**Example 1:** *Simple interval ${x \in [-1,1]}$ , with 100 points:*
 		
 	x = pinns.Domain(-1,1,100)
 
 For multidimensional domains, the lower and higher boundaries for each input variable are in lists.
 
-**Example 2:**  *Domain $x_1\in[-1,1], x_2\in[0,2]$, with 100 points:*
+**Example 2:**  *Domain ${x_1 \in {[-1,1]}, x_2 \in {[0,2]}}$, with 100 points:*
   
 	x = pinns.Domain([-1,0],[1,2],100)
 
-***Note 1:*** *The domain created by the above command is not to be confused with the domain $x_1\in[-1,0], x_2\in[1,2]$. The separation of input parameters is based on the boundaries of the variable intervals, and not by the intervals themselves.*
+***Note 1:*** *The domain created by the above command is not to be confused with the domain $x_1\in{[-1,0]}, x_2\in{[1,2]}$. The separation of input parameters is based on the boundaries of the variable intervals, and not by the intervals themselves.*
 
 ***Note 2:*** *The library currently supports only domains whose individual variables are intervals. That means that more complex geometrical domains like circles, spheres, polygons and triangles are not yet supported.*
 
