@@ -32,6 +32,7 @@ Future versions aim to extend the variety of equations categories that can be so
 * [Complete implementation example](#complete-implementation-example)
     - [Print the results](#print-the-results)
 * [License](#license)
+* [Author](#author)
 
 ## What are Physics Informed Neural Networks?
 
@@ -399,3 +400,11 @@ As we can see, the training was successful, since the two graphs coincide perfec
 GNU General Public License v3.0 or later.
 
 See LICENSE to see the full text.
+
+## Author
+
+Alexandros Mavromatis
+
+Email: *alex38clues@gmail.com*
+
+Github: *https://github.com/alexandmi*
