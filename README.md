@@ -50,23 +50,23 @@ The library is available at the PyPi repository, so you can easily install it by
 
 The domain and all things related to point sets are handled by the `geometry` module. The DE domain is created by the `Domain` class. The constructor has 3 parameters:
 
-> **minval** (*int/list*):  Lower boundary coordinates  
-> **maxval** (*int/list*): Higher boundary coordinates  
-> **num_domain** (*int*):  Number of domain points
+> **minval** (*int/list*):  *Lower boundary coordinates*  
+> **maxval** (*int/list*): *Higher boundary coordinates*  
+> **num_domain** (*int*):  *Number of domain points*
 
 The boundary coordinates for an ordinary DE are numbers, whereas for a partial DE are lists of numbers. The number of domain points can vary from a few hundred to a few thousands, depending on the difficulty and complexity of the DE, so feel free to experiment with the number. Keep in mind however that the more points the domain has, the longer will the training take.
 
-**Example 1:** *Simple interval$\ x\in[-1,1]$, with 100 points:*
+**Example 1:** *Simple interval $x\in[-1,1]$, with 100 points:*
 		
 	x = pinns.Domain(-1,1,100)
 
 For multidimensional domains, the lower and higher boundaries for each input variable are in lists.
 
-**Example 2:**  *Domain$\ x_1\in[-1,1], x_2\in[0,2]$, with 100 points:*
+**Example 2:**  *Domain $x_1\in[-1,1], x_2\in[0,2]$, with 100 points:*
   
 	x = pinns.Domain([-1,0],[1,2],100)
 
-***Note 1:*** *The domain created by the above command is not to be confused with the domain $\ x_1\in[-1,0], x_2\in[1,2]$. The separation of input parameters is based on the boundaries of the variable intervals, and not by the intervals themselves.*
+***Note 1:*** *The domain created by the above command is not to be confused with the domain $x_1\in[-1,0], x_2\in[1,2]$. The separation of input parameters is based on the boundaries of the variable intervals, and not by the intervals themselves.*
 
 ***Note 2:*** *The library currently supports only domains whose individual variables are intervals. That means that more complex geometrical domains like circles, spheres, polygons and triangles are not yet supported.*
 
@@ -77,7 +77,7 @@ The get() method is used on Domain objects, in order to acquire a specific vecto
 	x0 = x.get(0)
 	x1 = x.get(1)
 
-***Note 1:*** *Watch out for the numbering used for the DE variables. In many mathematical statements the numbering starts from 1, but the first element in the Domain is returned with get(0). In the example above, the original domain variables were $\ x_1$ and $\ x_2$, but to avoid confusion when handled in the code, they were renamed to `x0` and  `x1` respectfully.*
+***Note 1:*** *Watch out for the numbering used for the DE variables. In many mathematical statements the numbering starts from 1, but the first element in the Domain is returned with get(0). In the example above, the original domain variables were $x_1$ and $x_2$, but to avoid confusion when handled in the code, they were renamed to `x0` and  `x1` respectfully.*
 
 ***Note 2:*** *Keep in mind that while the original x variable is a Domain object, variables `x0` and `x1` are tensorflow.Variable tensors, so properties of Domain do not apply to them.*
 
@@ -95,15 +95,15 @@ The first derivatives are calculated with the `jacobian()` method of class 	`Gra
 
 The `y` and `x` arguments are the same as the arguments of the `pde` method. 
 
-Index `yi` specifies the$\ y$ variable being differentiated. For DEs with one output variable, this index is always 0, which is also the default value. The argument is needed when we have a system of DEs with multiple$\ y$ outputs, like$\ y_1, y_2 ...$ etc. 
+Index `yi` specifies the $y$ variable being differentiated. For DEs with one output variable, this index is always 0, which is also the default value. The argument is needed when we have a system of DEs with multiple $y$ outputs, like $y_1, y_2 ...$ etc. 
 
-Index `xi` specifies the$\ x$ variable with respect to which the derivative is performed. For ordinary DEs with one input, the index is always 0, which is also the default value. The argument is needed when we have a partial DE with multiple$\ x$ inputs, like$\ x_1,x_2...$ etc.
+Index `xi` specifies the $x$ variable with respect to which the derivative is performed. For ordinary DEs with one input, the index is always 0, which is also the default value. The argument is needed when we have a partial DE with multiple $x$ inputs, like $x_1,x_2...$ etc.
 
-**Example 1:** Derivative$\ y'(x)$ from an ordinary DE
+**Example 1:** Derivative $y'(x)$ from an ordinary DE
 
 	dyx = pinns.Grad.jacobian(y,x)
 
-**Example 2:** Derivative $\  dy_0 \over dx_2$ from a DE system
+**Example 2:** Derivative $dy_0 \over dx_2$ from a DE system
 
 	dy1x2 = pinns.Grad.jacobian(y,x,yi=0,xi=2)
 
@@ -118,13 +118,13 @@ The second derivatives are calculated with the `hessian()` method of class 	`Gra
 > **xj** (*int*): *Index of independent variable for the second derivative*  
 
 The `y` and `x` arguments are again the same as the arguments of the `pde` method, and the `yi` index has the same use as in the `jacobian` method.
-Indices `xi` and `xj` specify the$\ x$ variables with respect to which the first and second derivatives are performed. For ordinary DEs with one input, both indices are always 0, which is also the default value.
+Indices `xi` and `xj` specify the $x$ variables with respect to which the first and second derivatives are performed. For ordinary DEs with one input, both indices are always 0, which is also the default value.
 
-**Example 1:** Derivative$\ y''(x)$ from an ordinary DE
+**Example 1:** Derivative $y''(x)$ from an ordinary DE
 
 	dyxx = pinns.Grad.hessian(y,x)
 
-**Example 2:** Derivative $\ d^2y_1 \over dx_1 dx_2$ from a DE system
+**Example 2:** Derivative $d^2y_1 \over dx_1 dx_2$ from a DE system
 
 	dy1x1x2 = pinns.Grad.jacobian(y,x,yi=1,xi=1,xj=2)
 
@@ -142,7 +142,7 @@ In order to compute derivatives of higher order than 2, you use a combination of
 	dy2x1x1 = pinns.Grad.hessian(y,x,yi=2,xi=1,xj=1)
 	dy2x1x1x2 = pinns.Grad.jacobian(dy2dx1x1,x,yi=0,xi=2)
 
-***Note:*** *An already calculated derivative like `dy2x1x1` consists of only one variable y (in this case$\ y_2$), so when its used as a parameter, the `yi` index must be 0.*
+***Note:*** *An already calculated derivative like `dy2x1x1` consists of only one variable y (in this case $y_2$), so when its used as a parameter, the `yi` index must be 0.*
 
 ### Forms and functions of x and y
 
