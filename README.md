@@ -56,7 +56,7 @@ The domain and all things related to point sets are handled by the `geometry` mo
 
 The boundary coordinates for an ordinary DE are numbers, whereas for a partial DE are lists of numbers. The number of domain points can vary from a few hundred to a few thousands, depending on the difficulty and complexity of the DE, so feel free to experiment with the number. Keep in mind however that the more points the domain has, the longer will the training take.
 
-**Example 1:** *Simple interval ${x \in [-1,1]}$ , with 100 points:*
+**Example 1:** Simple interval $x \in [-1,1]$ , with 100 points:
 		
 	x = pinns.Domain(-1,1,100)
 
@@ -84,7 +84,7 @@ The get() method is used on Domain objects, in order to acquire a specific vecto
 
 ## Create the loss function method
 
-The loss function method is created by the user just like any other python method. For the rest of the doc we'll be conventionally calling it `pde()`. It needs to have 2 parameters, x and y, and return the standard form of the DE. The DE contains different forms of x and y, and also their derivatives, which need to be calculated. Derivatives are handled by the `differentiation` module.
+The loss function method is created by the user just like any other python method. For the rest of the doc we'll be conventionally calling it `pde()`. It needs to have 2 parameters, `x` and `y`, and return the standard form of the DE. The DE contains different forms of `x` and `y`, and also their derivatives, which need to be calculated. Derivatives are handled by the `differentiation` module.
 
 ### First derivatives
 The first derivatives are calculated with the `jacobian()` method of class 	`Gradients`, or `Grad` for short. It takes 4 parameters:
@@ -234,7 +234,7 @@ Normal form: $y(0) = 1$
 
 **Example 2:**
 
-Given form: ${{{\partial^2y_1} \over \partial x_0^2}+2x_0} = {\partial y_0 \over \partial x_0}$
+Given form: ${{{\partial^2y_1} \over \partial x_0^2}+2x_0} = {\partial y_0 \over \partial x_0}$ , with $x \in [x_0,0]$
 
 Normal form: ${{\partial^2y_1} \over \partial x_0^2} = {\partial y_0 \over \partial x_0} -2x_0$ , with $x \in [x_0,0]$
 
