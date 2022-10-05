@@ -1,5 +1,6 @@
-# PINNs
-
+<p align="center">
+  <img src="https://see.fontimg.com/api/renderfont4/rwOO/eyJyIjoiZnMiLCJoIjo2OSwidyI6MTAwMCwiZnMiOjY5LCJmZ2MiOiIjMTk2MUE4IiwiYmdjIjoiI0ZGRkZGRiIsInQiOjF9/UElOTnM/matamata-bold.png" />
+</p>
 Pinns is a python library which creates neural networks that can solve differential equations.
 
 ## Description
