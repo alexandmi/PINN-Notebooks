@@ -56,19 +56,19 @@ The domain and all things related to point sets are handled by the `geometry` mo
 
 The boundary coordinates for an ordinary DE are numbers, whereas for a partial DE are lists of numbers. The number of domain points can vary from a few hundred to a few thousands, depending on the difficulty and complexity of the DE, so feel free to experiment with the number. Keep in mind however that the more points the domain has, the longer will the training take.
 
-**Example 1:** Simple interval $x \in [-1,1]$ , with 100 points:
+**Example 1:** Simple interval $x \in [-1,1]$, with 100 points:
 		
 	x = pinns.Domain(-1,1,100)
 
 For multidimensional domains, the lower and higher boundaries for each input variable are in lists.
 
-**Example 2:**  *Domain ${x_1 \in {[-1,1]}, x_2 \in {[0,2]}}$, with 100 points:*
+**Example 2:**  Domain $x_1 \in [-1,1], x_2 \in [0,2]$, with 100 points:
   
 	x = pinns.Domain([-1,0],[1,2],100)
 
-***Note 1:*** *The domain created by the above command is not to be confused with the domain $x_1\in{[-1,0]}, x_2\in{[1,2]}$. The separation of input parameters is based on the boundaries of the variable intervals, and not by the intervals themselves.*
+***Note 1:*** The domain created by the above command is not to be confused with the domain $x_1\in{[-1,0]}, x_2\in{[1,2]}$. The separation of input parameters is based on the boundaries of the variable intervals, and not by the intervals themselves.
 
-***Note 2:*** *The library currently supports only domains whose individual variables are intervals. That means that more complex geometrical domains like circles, spheres, polygons and triangles are not yet supported.*
+***Note 2:*** The library currently supports only domains whose individual variables are intervals. That means that more complex geometrical domains like circles, spheres, polygons and triangles are not yet supported.
 
 ### Method get()
 
@@ -77,9 +77,9 @@ The get() method is used on Domain objects, in order to acquire a specific vecto
 	x0 = x.get(0)
 	x1 = x.get(1)
 
-***Note 1:*** *Watch out for the numbering used for the DE variables. In many mathematical statements the numbering starts from 1, but the first element in the Domain is returned with get(0). In the example above, the original domain variables were $x_1$ and $x_2$, but to avoid confusion when handled in the code, they were renamed to `x0` and  `x1` respectfully.*
+***Note 1:*** Watch out for the numbering used for the DE variables. In many mathematical statements the numbering starts from 1, but the first element in the Domain is returned with get(0). In the example above, the original domain variables were $x_1$ and $x_2$, but to avoid confusion when handled in the code, they were renamed to `x0` and  `x1` respectfully.
 
-***Note 2:*** *Keep in mind that while the original x variable is a Domain object, variables `x0` and `x1` are tensorflow.Variable tensors, so properties of Domain do not apply to them.*
+***Note 2:*** Keep in mind that while the original x variable is a Domain object, variables `x0` and `x1` are tensorflow.Variable tensors, so properties of Domain do not apply to them.
 
 
 ## Create the loss function method
@@ -107,7 +107,7 @@ Index `xi` specifies the $x$ variable with respect to which the derivative is pe
 
 	dy1x2 = pinns.Grad.jacobian(y,x,yi=0,xi=2)
 
-***Note:*** *Again, mind that despite the numbering used in the mathematical formula, the first variables in python start from 0.*
+***Note:*** Again, mind that despite the numbering used in the mathematical formula, the first variables in python start from 0.
 
 ### Second derivatives
 The second derivatives are calculated with the `hessian()` method of class 	`Gradients`. It takes 5 parameters:
@@ -142,7 +142,7 @@ In order to compute derivatives of higher order than 2, you use a combination of
 	dy2x1x1 = pinns.Grad.hessian(y,x,yi=2,xi=1,xj=1)
 	dy2x1x1x2 = pinns.Grad.jacobian(dy2dx1x1,x,yi=0,xi=2)
 
-***Note:*** *An already calculated derivative like `dy2x1x1` consists of only one variable y (in this case $y_2$), so when its used as a parameter, the `yi` index must be 0.*
+***Note:*** An already calculated derivative like `dy2x1x1` consists of only one variable y (in this case $y_2$), so when its used as a parameter, the `yi` index must be 0.
 
 ### Forms and functions of x and y
 
@@ -184,7 +184,7 @@ Standard forms of DEs: ${{dy_1 \over dt} - y_2} = 0, {{dy_2 \over dt}  +y_1} = 0
 		y2 = t.get(1)
 		return [dy1t - y2, dy2t + y1]
 
-***Note:*** *When we have a system of DEs, the return statement is a list containing all the DE standard forms.*
+***Note:*** When we have a system of DEs, the return statement is a list containing all the DE standard forms.
 
 **Example 3:**
 
@@ -199,9 +199,9 @@ Standard form of DE: $\ {\partial y \over \partial t} - {\partial ^2y \over \par
 		dydxx = pinns.Grad.hessian(y, geom, xi=0, xj=0)
 		return dydt - dydxx + tf.math.exp(-t) * (tf.math.sin(np.pi*x) - np.pi**2*tf.math.sin(np.pi*x))
 
-***Note 1:***  *In this mathematical formula, the second independent variable was named $x$. So if the argument for the input vector was also $x$ there would be confusion. For this, the name changed to `geom`, from *geometry*. If you do this, however, you should not forget to have `geom` as an argument inside `jacobian()` and `hessian()`, and not $x$.* 
+***Note 1:***  In this mathematical formula, the second independent variable was named $x$. So if the argument for the input vector was also $x$ there would be confusion. For this, the name changed to `geom`, from *geometry*. If you do this, however, you should not forget to have `geom` as an argument inside `jacobian()` and `hessian()`, and not $x$. 
 
-***Note 2:*** *It is important to note that inside the derivative methods, $y$ and $x$ are fed whole, as they were taken as arguments. Any specification for the type of gradient is given from the index parameters.*
+***Note 2:*** It is important to note that inside the derivative methods, $y$ and $x$ are fed whole, as they were taken as arguments. Any specification for the type of gradient is given from the index parameters.
 
 ***Wrong:***
 				
@@ -269,9 +269,9 @@ The last three arguments are meant for the specification of the left side of the
 
 When the DE is ordinary and there is a derivative on the left side, the `der_i` can be skipped, since there is only one independent variable with respect of which the differentiation can happen.
 
-***Note 1:*** *All the dependent variables and their derivatives in the condition are created by the same domain `x_ic`. This means that for now periodic conditions like $y(0) = y(1)$, are not supported.*
+***Note 1:*** All the dependent variables and their derivatives in the condition are created by the same domain `x_ic`. This means that for now periodic conditions like $y(0) = y(1)$, are not supported.
 
-***Note 2:*** *For now, degrees larger than 1 on the left side of the equation are not supported. This means that the dependent variable of the highest order must not be raised to a power, *e.g.* ${y'(0)}^2 =1$.*
+***Note 2:*** For now, degrees larger than 1 on the left side of the equation are not supported. This means that the dependent variable of the highest order must not be raised to a power, *e.g.* ${y'(0)}^2 =1$.
 
 ## Build and train your model
 
@@ -318,7 +318,7 @@ The training of a model is executed by the `train()` method. It does not return 
 **Example:**
 
 	pinns.train(model, x, pde, [ic1,ic2], epochs=3000, lr=0.01)
-***Note***: *Even if there is one initial condition, it has to be put into a list.*
+***Note***: Even if there is one initial condition, it has to be put into a list.
 
 While executed, `train()` prints the total loss, the pde loss and the initial conditions loss every 1000 epochs. At the end it prints the total time needed for the training.
 
@@ -365,7 +365,7 @@ Output:
 	Epoch: 2000		Total Loss = 4.24e-04	PDE Loss = 6.71e-05		BC Loss = 3.57e-04
 	Training took 140.820704959 s
 
-***Note***: *The model chosen after the training is the one which corresponds to the last epoch, not the one with the smallest total loss. This is meant to be fixed in a later version.*
+***Note***: The model chosen after the training is the one which corresponds to the last epoch, not the one with the smallest total loss. This is meant to be fixed in a later version.
 
 ### Print the results
 
